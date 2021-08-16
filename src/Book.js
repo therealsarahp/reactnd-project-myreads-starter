@@ -7,6 +7,7 @@ class Book extends Component {
     render() {
         const { book , shelf} = this.props
 
+        console.log(shelf)
 
         if(book && book.authors && book.imageLinks) {
             return(
@@ -58,6 +59,21 @@ class Book extends Component {
                         )
                     )}
                 </div>
+            )
+        } else{
+            return(
+            <div className="book">
+
+                <div className="book-top">
+                    <div className="book-cover" style={{
+                        width: 128,
+                        height: 193
+                    }}></div>
+                    <MoveTo book={book} shelf={shelf} onUpdateBook={this.props.onUpdateBook}/>
+                </div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors"><p><em>Author Not Found</em></p></div>
+            </div>
             )
         }
 

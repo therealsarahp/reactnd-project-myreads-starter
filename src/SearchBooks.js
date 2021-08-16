@@ -24,12 +24,19 @@ class SearchBooks extends Component{
     }
 
     ComponentDidMount(){
-            BooksAPI.getAll()
-                .then((books) => {
-                    this.setState(() => ({
-                        books : books
-                    }))
-                })
+        BooksAPI.search(this.state.query)
+            .then((books) => {
+                this.setState(() => ({
+                    books : books
+                }))
+            })
+
+            // BooksAPI.getAll()
+            //     .then((books) => {
+            //         this.setState(() => ({
+            //             books : books
+            //         }))
+            //     })
 
     }
 
@@ -44,21 +51,14 @@ class SearchBooks extends Component{
         }
     }
 
-    //adds a key of shelf for objects without it, defaults shelf value to "none"
-//         if(books && books.length > 0) {
-//             books.forEach((book) => {
-//                 if (!book.shelf) {
-//                     book["shelf"] = "none";
-//                     console.log(book.title, "is on", book.shelf)
-//                 } else {
-//                     console.log(book.title, "is on", book.shelf)
-//                 }
-//             })
-//         }
+
 
 
     render() {
         const {query, books} = this.state
+
+        // adds a key of shelf for objects without it, defaults shelf value to "none"
+
 
         return(
         <div className="search-books">
@@ -83,7 +83,7 @@ class SearchBooks extends Component{
                 { books && books.length > 0 ? (
                 <ol className="books-grid">
                     {books.map((book)=>(
-                        <Book key={book.id} book={book} shelf={"none"} onUpdateBook={this.props.onUpdateBook}/>))
+                        <Book key={book.id} book={book} shelf={this.props.books.includes(book) ? "wantToRead" : "none"} onUpdateBook={this.props.onUpdateBook}/>))
                     }
                 </ol>) : (
                     <p><em>No Books To Show...</em></p>)}
