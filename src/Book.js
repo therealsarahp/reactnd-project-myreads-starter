@@ -7,7 +7,6 @@ class Book extends Component {
     render() {
         const { book , shelf} = this.props
 
-        console.log(shelf)
 
         if(book && book.authors && book.imageLinks) {
             return(
