@@ -24,15 +24,11 @@ class BooksApp extends Component {
             .then()
         BooksAPI.getAll()
             .then((books)=>
-                this.setState(()=>({
-                            books: books}
-                    )
-                ))
+                this.setState({books}))
     }
 
 
     render() {
-
         const {books} = this.state
 
     return (

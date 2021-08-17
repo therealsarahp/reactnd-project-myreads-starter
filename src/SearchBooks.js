@@ -11,52 +11,45 @@ class SearchBooks extends Component{
         books: [],
     }
 
-    updateQuery=(event)=>{
+    updateQuery=(event)=> {
         event.preventDefault();
         this.setState({
             query: event.target.value
         })
+        if (event.target.value !== '') {
         BooksAPI.search(event.target.value)
             .then((books) => {
-                let sameBooks= [];
-                if(books && books.length > 0){
-                books.forEach((searchBook)=>
-                {this.props.books.forEach((homeBook)=>{
-                    if(searchBook.id === homeBook.id){
-                        sameBooks.push(homeBook);
-                        books.splice(books.indexOf(searchBook), 1)}
-                })
-                })
-                this.setState(() => ({
-                    books : books.concat(sameBooks)
-                }))}
+                let sameBooks = [];
+                if (books && books.length > 0) {
+                    books.forEach((searchBook) => {
+                        this.props.books.forEach((homeBook) => {
+                            if (searchBook.id === homeBook.id) {
+                                sameBooks.push(homeBook);
+                                books.splice(books.indexOf(searchBook), 1)
+                            }
+                        })
+                    })
+                    this.setState(() => ({
+                        books: books.concat(sameBooks)
+                    }))
+                }
             })
-
+    }
+    else{
+        BooksAPI.search('')
+            .then((books)=>{
+                this.setState({books})
+            })
+        }
     }
 
     clearQuery = () => {
         this.updateQuery('')
     }
 
-    ComponentDidMount(){
-        BooksAPI.search(this.state.query)
-            .then((books) => {
-                this.setState(() => ({
-                    books : books
-                }))
-            })
-
-    }
-
-
-
-
 
     render() {
         const {query, books} = this.state
-
-
-        console.log(books.map(book => book.shelf))
 
         return(
         <div className="search-books">
