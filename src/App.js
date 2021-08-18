@@ -19,13 +19,16 @@ class BooksApp extends Component {
                 )
              ))}
 
+
     updateBook=(book, shelf)=>{
 
         BooksAPI.update(book, shelf)
-            .then()
-        BooksAPI.getAll()
-            .then((books)=>
-                this.setState({books}))
+            .then( ()=>{
+                BooksAPI.getAll()
+                    .then((books)=>
+                    this.setState({books}))
+                }
+            )
     }
 
 
