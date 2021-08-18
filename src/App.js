@@ -20,6 +20,7 @@ class BooksApp extends Component {
              ))}
 
     updateBook=(book, shelf)=>{
+
         BooksAPI.update(book, shelf)
             .then()
         BooksAPI.getAll()
@@ -30,6 +31,19 @@ class BooksApp extends Component {
 
     render() {
         const {books} = this.state
+        // const shelves = [{books: [], shelf: "currentlyReading", title: "Currently Reading"},
+        //     {books: [], shelf: "wantToRead", title: "Want To Read"},
+        //     {books: [], shelf: "read", title: "Read"}
+        // ]
+        //
+        // shelves.forEach((shelf)=>{
+        //     shelf.books.push(
+        //     books.filter((book)=>
+        //         book.shelf === shelf.shelf
+        //     ))
+        // })
+
+
 
     return (
 
@@ -54,6 +68,10 @@ class BooksApp extends Component {
             </div>
               <div className="list-books-content">
                   <div>
+                      {/*{shelves.map((shelf, index )=>(*/}
+                      {/*    <Shelf key={index} books={shelf.books} title={shelf.title} shelf={shelf.shelf} onUpdateBook={this.updateBook} />*/}
+                      {/*))}*/}
+
                       <Shelf books={books.filter((book)=> book.shelf === "currentlyReading")} title={"Currently Reading"} shelf={"currentlyReading"}
                              onUpdateBook={this.updateBook}/>
                       <Shelf books={books.filter((book)=> book.shelf === "wantToRead")} title={"Want To Read"} shelf = {"wantToRead"}
